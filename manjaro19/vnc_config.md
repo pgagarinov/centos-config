@@ -1,41 +1,41 @@
-# Некоторые моменты по использованию VNC
-## 1. Приложение
-Приложением, для подключения к VNC должен быть RealVNC Viewer
-## 2. Установка (замена) пароля на сессию VNC
+# how to use the x11vnc service
+## 1. Client VNC
+The application to connect to VNC must be RealVNC Viewer
+## 2. Replacing the VNC password
 
 > x11vnc --storepasswd **пароль** /etc/x11vnc.passwd 
 
-## 3. Ошибки клавиатуры
-**3.1.** Для устранения проблем передачи нажатий клавиатуры через VNC необходимо:
-Создать в любом удобном месте файл (например fix.sh) с содержимым
+## 3. Keyboard errors
+**3.1.** To resolve problems with transmitting keyboard taps via VNC, you must:
+Create a file in any convenient location (for example fix.sh) with content
 > #!/bin/sh
 > xmodmap -e "keycode 59 = 0x002c 0x003c 0x06c2 0x06e2"
 > xmodmap -e "keycode 60 = 0x002e 0x003e 0x06c0 0x06e0"
 > xmodmap -e "keycode 94 = 0x003c 0x003c 0x06c2 0x06e2"
 
-В меню "Пуск", в поиске написать autostart, 
-В открывшемся окне нажать кнопку "Add script"
-Выбрать созданный нами на предыдущем шаге скрипт.
-Выбрать способ применения скрипта "Startup" (при загрзуке).
-На хостовом (клиентской, домашней) машине всегда должен быть выбран английский язык, менять раскладку следует только на удаленной машине.
+In the start menu, write autostart in the search,
+In the window that opens, click " Add script"
+Select the script we created in the previous step.
+Choose how to use the "Startup" script (when loading).
+English should always be selected on the tail (client, home) machine, and the layout should only be changed on the remote machine.
 
-**3.2.** Для решения проблем с "залипанием" клавиш, мы можем использовать несколько способов:
+**3.2.** There are several ways to solve problems with key sticking:
 
-**а)** вручную, в консоли, при необходимости включения этого функционала вводить команду
+**а)** manually, in the console, if you need to enable this functionality, enter the command
 > xset r on
 
-Проверяем, изменение состояния
+Checking, changing the status
 >xset q
 
-**б)** в настройках конфигурации VNC сервера (нужно добавить ключ -repeat) - это автоматически будет включать опцию "залипания" клавиатуры
+**б)** in the VNC server configuration settings (you need to add the key --repeat) - this will automatically enable the keyboard "sticking" option
 
 ## 4. Мерцание экрана
 
-Необходимо зайти в меню-Пуск 
-Найти и выборать System Settings
-Затем, перейти в раздел Display and Monitor
-В нем выбрать Compositor
-Выбрать следующие значения:
+You need to go to the start menu 
+Find and select System Settings
+Then go to the Display and Monitor section
+Select Compositor in it
+Select the following values:
 Rendering backend == XRender
 Scale method == Crisp
 
